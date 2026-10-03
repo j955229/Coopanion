@@ -90,7 +90,8 @@ export function createPet(els, opts) {
       moveWithPlatform(next);
       surfaces = next;
     }).catch(() => {
-      surfaces = [];
+      // Keep the last good snapshot on a transient IPC/native error. A successful empty snapshot
+      // still clears it, so closing/minimizing a supporting window makes the pet fall normally.
     }).finally(() => { polling = false; });
   }
 
